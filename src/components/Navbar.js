@@ -17,7 +17,7 @@ function classNames(...classes) {
 export default function Navbar() {
   return (
     <div className='relative'>
-    <Disclosure as="nav" className="navbar fixed top-0 left-0 right-0 bg-indigo-500 w-full">
+    <Disclosure as="nav" className="navbar fixed top-0 left-0 right-0 bg-black w-full">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-20 items-center justify-between">
           <div className="flex flex-1 items-center justify-between">
