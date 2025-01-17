@@ -58,6 +58,6 @@ h1{
 
 .custom-next:hover,
 .custom-prev:hover {
-  background-color: darkblue;
-  color: lightgray;
+  background-color: black;
+  color: white;
 }
