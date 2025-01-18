@@ -1,16 +1,19 @@
+import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar.js';
-import Carousel from './components/Carousel.js'; 
-import Beranda from './components/Beranda.js';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Beranda from './pages/Beranda';
+import Berita from './pages/Berita';
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Carousel />
-      <Beranda />
-    </div>
-  );
-}
+    <Router> 
+      <Routes>
+        <Route path="/" element={<Beranda/>}/> 
+        <Route path="/berita" element={<Berita/>}/> 
+      </Routes>
+    </Router>
+  ); 
+} 
 
 export default App;

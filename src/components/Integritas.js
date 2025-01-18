@@ -1,15 +1,15 @@
 import logo1 from "./assets/Logo/4.png";
 import logo2 from "./assets/Logo/16.png";
 
-export default function Beranda() {
+export default function Integritas() {
     return (
-        <div class="grid grid-cols-7 gap-4 my-20">
+        <div class="grid grid-cols-7 gap-4 my-10">
             <div className="col-start-2 col-end-4 flex">
                 <div className="flex flex-col my-10">
-                    <h1>
-                    <span className="blue">ZONA</span>{" "}
+                    <p className="title">
+                    <span className="blue title">ZONA</span>{" "}
                     INTEGRITAS
-                    </h1>
+                    </p>
                     <p className="desc">Predikat ini diberikan kepada kementrian,
                     lembaga dan pemerintah daerah, yang
                     pimpinan dan jajarannya mempunyai niat
@@ -27,10 +27,10 @@ export default function Beranda() {
             </div>
             <div className="col-start-5 col-end-7 flex my-10">
                 <div className="flex flex-col">
-                    <h1 className="text-right">
+                    <p className="title text-right">
                         REFORMASI{" "}
-                        <span className="blue">BIROKRASI</span>
-                    </h1>
+                        <span className="blue title">BIROKRASI</span>
+                    </p>
                     <p className="desc text-right">Langkah perbaikan tata kelola pemerintah, yang
                     merupakan fondasi utama bagi pembangunan
                     nasional. proses ini melibatkan upaya

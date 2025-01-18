@@ -1,11 +1,11 @@
 import { Disclosure} from '@headlessui/react'
-import logo from './1.png'
+import logo from '../components/assets/Logo/1.png'
 
 const navigation = [
   { name: 'Beranda', href: '#', active : true },
   { name: 'Profil', href: '#' },
-  { name: 'Berita', href: '#' },
-  { name: 'WBK', href: '#'},
+  { name: 'Berita', href: '/berita' },
+  { name: 'WBK', href: '#' },
   { name: 'Road Map', href: '#' },
   { name: 'Timeline', href: '#' },
 ]
@@ -16,8 +16,8 @@ function classNames(...classes) {
 
 export default function Navbar() {
   return (
-    <div className='relative'>
-    <Disclosure as="nav" className="navbar fixed top-0 left-0 right-0 bg-black w-full">
+    <div className="relative">
+    <Disclosure as="nav" className="fixed top-0 left-0 right-0 bg-blue-900 w-full navbar">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-20 items-center justify-between">
           <div className="flex flex-1 items-center justify-between">
@@ -36,8 +36,8 @@ export default function Navbar() {
                     href={item.href}
                     aria-current={item.current ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-white hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-lg font-medium',
+                      item.current ? 'bg-gray-900 text-white' : 'text-white hover:text-cyan-500',
+                      'rounded-md px-3 py-2 text-md font-normal',
                     )}
                   >
                     {item.name}
