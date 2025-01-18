@@ -7,7 +7,7 @@ import logo6 from "./assets/Logo/10.png";
 
 const features = [
     {
-      icon: logo1, // Ganti dengan ikon atau gambar Anda
+      icon: logo1,
       title: "Manajemen Perubahan",
     },
     {

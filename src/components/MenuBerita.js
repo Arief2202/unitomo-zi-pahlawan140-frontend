@@ -16,7 +16,7 @@ const listBerita = [
 
 function MenuBerita() {
   return (
-    <div className="grid grid-cols-12 px-4 mt-10">
+    <div className="grid grid-cols-12 px-4 p-12">
       <div className="col-start-3 col-span-2">
         <div className="relative">
           <div className="absolute bg-yellow-500 h-7 w-14 top-1 -left-4 -z-10"></div>
