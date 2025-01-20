@@ -20,10 +20,10 @@ export default function Integritas() {
                 </div>
             </div>
             <div className="flex justify-center items-center">
-                <img className="logo" src={logo1} />
+                <img className="logo" src={logo1} alt=""/>
             </div>
             <div className="flex items-center justify-center col-start-4">
-                <img className="logo" src={logo2} />
+                <img className="logo" src={logo2} alt=""/>
             </div>
             <div className="col-start-5 col-end-7 flex my-10">
                 <div className="flex flex-col">

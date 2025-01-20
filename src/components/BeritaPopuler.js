@@ -68,7 +68,6 @@ const BeritaPopuler = () => {
             <SwiperSlide key={item.id} >
               <a
                 href={item.link}
-                target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center"
               >

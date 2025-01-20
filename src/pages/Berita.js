@@ -1,13 +1,13 @@
 import Navbar from '../components/Navbar.js';
 import BeritaPopuler from '../components/BeritaPopuler.js';
-import MenuBerita from '../components/MenuBerita.js';
+import CategoryBerita from '../components/CategoryBerita.js';
 
 function Berita() {
     return (
       <div>
         <Navbar />
         <BeritaPopuler />
-        <MenuBerita />
+        <CategoryBerita />
       </div>
     ); 
   } 

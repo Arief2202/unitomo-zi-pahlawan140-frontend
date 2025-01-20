@@ -2,7 +2,7 @@ import { Disclosure} from '@headlessui/react'
 import logo from '../components/assets/Logo/1.png'
 
 const navigation = [
-  { name: 'Beranda', href: '/', active : true },
+  { name: 'Beranda', href: '/' },
   { name: 'Profil', href: '#' },
   { name: 'Berita', href: '/berita' },
   { name: 'WBK', href: '#' },

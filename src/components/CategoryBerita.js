@@ -1,20 +1,24 @@
 import megaphone from "./assets/megaphone.svg";
 import gambar1 from "./assets/FotoBerita/3.png";
+import { Link } from "react-router-dom";
 
 const category = [
-  { id: 1, name: "Category News 1", link: "#" },
-  { id: 2, name: "Category News 2", link: "#" },
-  { id: 3, name: "Category News 3", link: "#" },
-  { id: 4, name: "Category News 4", link: "#" },
+  { id: 1, name: "Category News 1"},
+  { id: 2, name: "Category News 2"},
+  { id: 3, name: "Category News 3"},
+  { id: 4, name: "Category News 4"},
+  { id: 5, name: "Category News 69"},
 ];
 const listBerita = [
-  { id: 1, judul: "Category News 1", desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.", image: gambar1, link: "#" },
+  { id: 1, judul: "Category News 1", desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.", image: gambar1, link: "/menu-berita" },
   { id: 2, judul: "Category News 2", desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.", image: gambar1, link: "#" },
   { id: 3, judul: "Category News 3", desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.", image: gambar1, link: "#" },
   { id: 4, judul: "Category News 4", desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.", image: gambar1, link: "#" },
 ];
 
-function MenuBerita() {
+
+
+function CategoryBerita() {
   return (
     <div className="grid grid-cols-12 px-4 p-12">
       <div className="col-start-3 col-span-2">
@@ -28,13 +32,13 @@ function MenuBerita() {
         </div>
         <div className="mt-4 space-y-4">
           {category.map((item) => (
-            <a
-              key={item.id}
-              href={item.link}
-              className="block font-semibold text-lg underline hover:text-blue-800"
-            >
-              {item.name}
-            </a>
+            <Link
+            key={item.id}
+            to={`/menu-berita/${item.id}`}
+            className="block font-semibold text-lg underline hover:text-blue-800"
+          >
+            {item.name}
+          </Link>
           ))}
         </div>
         <div className="mt-10">
@@ -61,7 +65,7 @@ function MenuBerita() {
         {listBerita.map((item) => (
         <div className="mt-8">
         <a
-          href="#"
+          href={item.link}
           className="flex items-center"
         >
            <div className="flex p-4rounded-lg space-x-4 max-w-4xl">
@@ -90,4 +94,4 @@ function MenuBerita() {
   );
 }
 
-export default MenuBerita;
+export default CategoryBerita;
