@@ -60,6 +60,7 @@ function CategoryBeritaFull() {
   const category = categories.find((cat) => cat.id === parseInt(id));
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     if (searchQuery.trim() !== "") {
@@ -67,8 +68,10 @@ function CategoryBeritaFull() {
         berita.judul.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(results);
+      setNotFound(results.length === 0);
     } else {
       setSearchResults([]);
+      setNotFound(false);
     }
   }, [searchQuery]);
 
@@ -136,30 +139,37 @@ function CategoryBeritaFull() {
         </div>
       </div>
       <div className="col-start-6 col-span-6 row-start-2">
-        {displayedBerita.map((item) => (
-          <div key={item.id} className="mt-8">
-            <a href={item.link} className="flex items-center">
-              <div className="flex p-4 rounded-lg space-x-4 max-w-4xl">
-                <div className="w-32 h-32 flex-shrink-0">
-                  <img
-                    src={item.image}
-                    alt="Thumbnail Berita"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <h2 className="text-xl font-bold mb-2">{item.judul}</h2>
-                  <p className="text-black font-normal mb-4 leading-tight">
-                    {item.desc}
-                  </p>
-                  <p className="text-right mr-12 hover:underline">
-                    Lihat Selengkapnya ➔
-                  </p>
-                </div>
-              </div>
-            </a>
+        {notFound ? (
+          <div className="text-center text-gray-500 mt-8">
+            <p className="text-lg font-semibold">Tidak ada hasil yang cocok.</p>
+            <p>Silakan coba kata kunci lain.</p>
           </div>
-        ))}
+        ) : (
+          displayedBerita.map((item) => (
+            <div key={item.id} className="mt-8">
+              <a href={item.link} className="flex items-center">
+                <div className="flex p-4 rounded-lg space-x-4 max-w-4xl">
+                  <div className="w-32 h-32 flex-shrink-0">
+                    <img
+                      src={item.image}
+                      alt="Thumbnail Berita"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <h2 className="text-xl font-bold mb-2">{item.judul}</h2>
+                    <p className="text-black font-normal mb-4 leading-tight">
+                      {item.desc}
+                    </p>
+                    <p className="text-right mr-12 hover:underline">
+                      Lihat Selengkapnya ➔
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
