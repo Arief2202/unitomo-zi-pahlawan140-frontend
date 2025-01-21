@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import Beranda from './pages/Beranda';
 import Berita from './pages/Berita';
 import MenuBerita from './pages/MenuBerita';
