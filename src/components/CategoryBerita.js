@@ -28,7 +28,7 @@ function CategoryBerita() {
             Menu{" "}
             <span className="blue">Berita ZI-RB</span>
           </p>
-          <div className="border-2 border-black mt-2 w-full"></div>
+          <div className="border-t-2 border-black mt-2 w-full"></div>
         </div>
         <div className="mt-4 space-y-4">
           {category.map((item) => (
@@ -43,7 +43,7 @@ function CategoryBerita() {
         </div>
         <div className="mt-10">
           <p className="text-2xl font-bold">Layanan</p>
-          <div className="border-2 border-black mt-2 w-full"></div>
+          <div className="border-t-2 border-black mt-2 w-full"></div>
           <div className="mt-4">
             <a href="https://pahlawan140.com/aduan" target="_blank" rel="noopener noreferrer">
               <img src={megaphone} alt="Layanan Aduan" className="w-16 h-16" />

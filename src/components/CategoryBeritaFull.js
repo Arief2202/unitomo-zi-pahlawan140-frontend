@@ -23,24 +23,53 @@ const categories = [
   },
 ];
 
+const listBerita = [
+  {
+    id: 1,
+    judul: "Category News 1",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
+    image: "gambar1",
+    link: "/menu-berita",
+  },
+  {
+    id: 2,
+    judul: "Category News 2",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
+    image: "gambar1",
+    link: "#",
+  },
+  {
+    id: 3,
+    judul: "Category News 3",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
+    image: "gambar1",
+    link: "#",
+  },
+  {
+    id: 4,
+    judul: "Category News 4",
+    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
+    image: "gambar1",
+    link: "#",
+  },
+];
+
 function CategoryBeritaFull() {
   const { id } = useParams();
   const category = categories.find((cat) => cat.id === parseInt(id));
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const subcategories = category ? category.subcategories : [];
-
   useEffect(() => {
     if (searchQuery.trim() !== "") {
-      const results = subcategories.filter((subcategory) =>
-        subcategory.name.toLowerCase().includes(searchQuery.toLowerCase())
+      const results = listBerita.filter((berita) =>
+        berita.judul.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(results);
     } else {
       setSearchResults([]);
     }
-  }, [searchQuery, subcategories]);
+  }, [searchQuery]);
 
   if (!category) {
     return <div>Category not found!</div>;
@@ -109,7 +138,9 @@ function CategoryBeritaFull() {
               <ul className="list-disc list-inside">
                 {searchResults.map((result) => (
                   <li key={result.id} className="text-gray-700">
-                    {result.name}
+                    <Link to={result.link} className="underline hover:text-blue-800">
+                      {result.judul}
+                    </Link>
                   </li>
                 ))}
               </ul>
