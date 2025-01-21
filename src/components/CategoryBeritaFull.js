@@ -72,7 +72,7 @@ function CategoryBeritaFull() {
   }, [searchQuery]);
 
   if (!category) {
-    return <div>Category not found!</div>;
+    return <div>Berita Tidak Ditemukan !</div>;
   }
 
   return (
@@ -120,13 +120,12 @@ function CategoryBeritaFull() {
             )}
           </div>
         </div>
-        {/* Search bar */}
-        <div className="col-start-5 col-span-6 mt-4">
-          <div className="relative w-2/3">
-            <i className="fa fa-search absolute left-3 top-3 text-gray-500"></i>
+        <div className="col-start-9 col-span-3 mt-4">
+          <div className="relative w-full">
+            <i className="fa fa-search absolute left-3 top-2.5 text-gray-500"></i>
             <input
               type="text"
-              className="border-2 border-black rounded-full px-10 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-black rounded-full px-8 py-1 w-full"
               placeholder="Cari judul berita disini"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
