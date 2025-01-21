@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import gambar1 from "./assets/FotoBerita/3.png";
 
 const categories = [
   {
@@ -28,28 +29,28 @@ const listBerita = [
     id: 1,
     judul: "Category News 1",
     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: "gambar1",
+    image: gambar1,
     link: "/menu-berita",
   },
   {
     id: 2,
     judul: "Category News 2",
     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: "gambar1",
+    image: gambar1,
     link: "#",
   },
   {
     id: 3,
     judul: "Category News 3",
     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: "gambar1",
+    image: gambar1,
     link: "#",
   },
   {
     id: 4,
     judul: "Category News 4",
     desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: "gambar1",
+    image: gambar1,
     link: "#",
   },
 ];
@@ -76,8 +77,7 @@ function CategoryBeritaFull() {
   }
 
   return (
-    <div className="p-8 mt-10">
-      <div className="grid grid-cols-12 px-4 p-12">
+      <div className="grid grid-cols-12 px-4 p-12 mt-20">
         <div className="col-start-2 col-span-2 text-lg mb-4">
           <Link to="/berita">Berita</Link> {" > "}
           <span className="blue">{category.name}</span>
@@ -86,7 +86,8 @@ function CategoryBeritaFull() {
           <div className="relative mt-10">
             <div className="absolute hr-orange h-7 w-14 top-2 -left-4 -z-10"></div>
             <p className="text-2xl font-bold">
-              Menu <span className="blue">Berita ZI-RB</span>
+              Menu {" "}
+              <span className="blue">Berita ZI-RB</span>
             </p>
             <div className="border-2 border-black mt-2 w-full"></div>
           </div>
@@ -120,7 +121,7 @@ function CategoryBeritaFull() {
             )}
           </div>
         </div>
-        <div className="col-start-9 col-span-3 mt-4">
+        <div className="col-start-9 col-span-3 mt-4 row-start-1">
           <div className="relative w-full">
             <i className="fa fa-search absolute left-3 top-2.5 text-gray-500"></i>
             <input
@@ -150,8 +151,36 @@ function CategoryBeritaFull() {
             )
           )}
         </div>
+        <div className="col-start-6 col-span-6 row-start-2">
+        {listBerita.map((item) => (
+        <div className="mt-8">
+        <a
+          href={item.link}
+          className="flex items-center"
+        >
+           <div className="flex p-4rounded-lg space-x-4 max-w-4xl">
+      <div className="w-32 h-32 flex-shrink-0">
+        <img
+          src={item.image}
+          alt="Thumbnail Berita"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="flex flex-col">
+        <h2 className="text-xl font-bold mb-2">{item.judul}</h2>
+        <p className="text-black font-normal mb-4 leading-tight">
+        {item.desc}
+        </p>
+        <p className="text-right mr-12 hover:underline">
+          Lihat Selengkapnya ➔
+        </p>
       </div>
     </div>
+    </a>
+        </div>
+        ))}
+        </div>
+      </div>
   );
 }
 
