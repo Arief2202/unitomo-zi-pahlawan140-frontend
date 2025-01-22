@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Beranda from './pages/Beranda';
 import Berita from './pages/Berita';
 import MenuBerita from './pages/MenuBerita';
+import ArtikelBerita from './pages/ArtikelBerita';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Beranda/>}/> 
         <Route path="/berita" element={<Berita/>}/> 
         <Route path="/menu-berita/:id" element={<MenuBerita/>}/> 
+        <Route path="/artikel-berita/:id" element={<ArtikelBerita/>}/> 
       </Routes>
     </Router>
   ); 

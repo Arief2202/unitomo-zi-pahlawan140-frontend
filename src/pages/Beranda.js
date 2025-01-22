@@ -6,8 +6,6 @@ import WilayahBebasKorupsi from '../components/WilayahBebasKorupsi.js';
 import RoadMap from '../components/RoadMap.js';
 import Reformasi from '../components/Reformasi.js';
 
-
-
 function Beranda() {
   return (
     <div>
