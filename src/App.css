@@ -1,6 +1,6 @@
 
 *{
-  font-family: "Poppins", serif;
+  font-family: "Montserrat", serif;
 }
 .decor-circle{
   position: absolute;
@@ -39,7 +39,6 @@
   width: 100%;
 }
 .title{
-  font-family: "Inter", serif;
   font-weight: 800; 
   font-style: normal;
   font-size: 32px;
@@ -47,7 +46,6 @@
   position: relative;
 }
 .title-berita{
-  font-family: "Inter", serif;
   font-weight: 800; 
   font-style: normal;
   font-size: 28px;
