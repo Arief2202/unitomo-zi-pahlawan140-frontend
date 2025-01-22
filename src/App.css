@@ -74,9 +74,11 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 .custom-next {
+  top: 16vw;
   right: 10px;
 }
 .custom-prev {
+  top: 16vw;
   left: 10px;
 }
 .custom-next:hover,
