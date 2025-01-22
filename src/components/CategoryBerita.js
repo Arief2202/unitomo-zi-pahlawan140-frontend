@@ -81,7 +81,7 @@ function CategoryBerita() {
         <p className="text-black font-normal mb-4 leading-tight">
         {item.desc}
         </p>
-        <p className="text-right mr-12 hover:underline">
+        <p className="text-sm text-right mr-12 hover:underline">
           Lihat Selengkapnya ➔
         </p>
       </div>
