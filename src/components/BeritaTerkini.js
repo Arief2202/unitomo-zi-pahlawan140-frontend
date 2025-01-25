@@ -52,7 +52,7 @@ const BeritaTerkini = () => {
       <div className="relative">
         <div className="decor-circle z-1"></div>
         </div>
-        <div class="grid grid-cols-7">
+        <div className="grid grid-cols-7">
             <div className="col-start-3 col-span-2 underline mt-10" >
                 <p className="title">
                     Berita{" "}
