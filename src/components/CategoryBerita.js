@@ -34,7 +34,6 @@ function CategoryBerita() {
     fetchData();
   }, []);
 
-  // Pagination logic
   const totalPages = Math.ceil(listBerita.length / itemsPerPage);
   const currentItems = listBerita.slice(
     (currentPage - 1) * itemsPerPage,
@@ -57,7 +56,6 @@ function CategoryBerita() {
     }
   };
 
-  // Calculate pagination range (only 3 numbers per page)
   const calculatePaginationRange = () => {
     const startPage = Math.floor((currentPage - 1) / 3) * 3 + 1;
     const endPage = Math.min(startPage + 2, totalPages);
@@ -137,8 +135,6 @@ function CategoryBerita() {
             </a>
           </div>
         ))}
-
-        {/* Pagination Controls */}
         <div className="flex justify-center items-center space-x-4 mt-6">
           <button
             className={`px-4 py-2 rounded ${
@@ -151,8 +147,6 @@ function CategoryBerita() {
           >
             Before
           </button>
-
-          {/* Page Numbers (only 3 displayed) */}
           {calculatePaginationRange().map((page) => (
             <button
               key={page}

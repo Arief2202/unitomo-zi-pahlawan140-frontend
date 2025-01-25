@@ -1,70 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import gambar1 from "./assets/Berita-ZI/ZI-1.jpg";
-
-const listBerita = [
-  {
-    id: 1,
-    judul: "Judul Berita Yang Berasal Dari Inputan Judul Artikel",
-    desc: "desc 1, sumber : kencono",
-    image: gambar1,
-    link: "/menu-berita",
-    time: "Senin, 13 Januari 2025 14.30 WIB",
-  },
-  {
-    id: 2,
-    judul: "Category News 2",
-    desc: "desc 2, sumber : kencono",
-    image: gambar1,
-    link: "#",
-    time: "Senin, 13 Januari 2025 14.30 WIB",
-  },
-  {
-    id: 3,
-    judul: "Category News 3",
-    desc: "desc 3, sumber : kencono",
-    image: gambar1,
-    link: "#",
-    time: "Senin, 13 Januari 2025 14.30 WIB",
-  },
-  {
-    id: 4,
-    judul: "Category News 4",
-    desc: "desc 4, sumber : kencono",
-    image: gambar1,
-    link: "#",
-    time: "Senin, 13 Januari 2025 14.30 WIB",
-  },
-];
+import axios from "axios";
+import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 
 const category = [
-  { id: 1, name: "Category News 1"},
-  { id: 2, name: "Category News 2"},
-  { id: 3, name: "Category News 3"},
-  { id: 4, name: "Category News 4"},
-  { id: 5, name: "Category News 69"},
+  { id: 1, name: "Category News 1" },
+  { id: 2, name: "Category News 2" },
+  { id: 3, name: "Category News 3" },
+  { id: 4, name: "Category News 4" },
+  { id: 5, name: "Category News 69" },
 ];
 
-const ArtikelBeritaBody = () => {
-  const { id } = useParams();
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return format(date, "EEEE, dd MMMM yyyy HH.mm 'WIB'", { locale: id });
+};
 
+const ArtikelBeritaBody = () => {
+  const { id } = useParams(); 
+  const [berita, setBerita] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchBerita = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/berita/${id}`);
+        if (response.data.status === "ok") {
+          setBerita(response.data.data);
+        } else {
+          throw new Error("Data tidak ditemukan.");
+        }
+        setLoading(false); 
+      } catch (err) {
+        console.error(err);
+        setError("Gagal memuat data."); 
+        setLoading(false);
+      }
+    };
+
+    fetchBerita();
+  }, [id]);
+
+  if (loading) {
+    return <div className="text-center mt-10">Memuat data...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center mt-10 text-red-500">{error}</div>;
+  }
 
   return (
     <div className="grid grid-cols-12 px-4 p-12 mt-20">
-      {listBerita.map((item) =>
-        parseInt(id) === item.id ? (
-          <div key={item.id} className="col-start-3 col-span-5 row-start-1 mt-20">
-            <div className="text-3xl font-bold inter mb-4">{item.judul}</div>
-            <div className="flex justify-between items-center mt-12">
-              <div className="text-gray-600 text-xs">{item.time}</div>
-              <div className="text-gray-800 text-xs">{item.desc}</div>
-            </div>
-            <img src={item.image}
-            className="rounded-xl mt-3"
-            ></img>
+      {berita && (
+        <div className="col-start-3 col-span-5 row-start-1 mt-20">
+          <div className="text-3xl font-bold inter mb-4">{berita.title}</div>
+          <div className="flex justify-between items-center mt-12">
+            <div className="text-gray-600 text-xs">{formatDate(berita.createdAt)}</div>
+            <div className="text-gray-800 text-xs">{berita.author}</div>
           </div>
-        ) : null
+          <img
+            src={berita.image}
+            alt={berita.title}
+            className="rounded-xl mt-3"
+          />
+        </div>
       )}
+
       <div className="col-start-9 col-span-2">
         <div className="relative">
           <div className="absolute bg-yellow-500 h-7 w-14 top-1 -left-4 -z-10"></div>
@@ -77,12 +79,12 @@ const ArtikelBeritaBody = () => {
         <div className="mt-4 space-y-4">
           {category.map((item) => (
             <Link
-            key={item.id}
-            to={`/menu-berita/${item.id}`}
-            className="block font-semibold text-lg underline hover:text-blue-800"
-          >
-            {item.name}
-          </Link>
+              key={item.id}
+              to={`/menu-berita/${item.id}`}
+              className="block font-semibold text-lg underline hover:text-blue-800"
+            >
+              {item.name}
+            </Link>
           ))}
         </div>
       </div>
