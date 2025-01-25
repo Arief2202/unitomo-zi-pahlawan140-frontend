@@ -3,6 +3,7 @@ import axios from "axios";
 import megaphone from "./assets/megaphone.svg";
 import gambar1 from "./assets/FotoBerita/3.png";
 import { Link } from "react-router-dom";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function CategoryBerita() {
   const [listBerita, setListBerita] = useState([]);
@@ -13,7 +14,7 @@ function CategoryBerita() {
   useEffect(() => {
     const fetchBerita = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/berita");
+        const response = await axios.get(`${BASE_URL}/api/berita`);
         if (response.status === 200 && response.data.status === "ok") {
           setListBerita(response.data.data || []);
         } else {
@@ -26,7 +27,7 @@ function CategoryBerita() {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/category");
+        const response = await axios.get(`${BASE_URL}/api/category`);
         if (response.status === 200 && response.data.status === "ok") {
           setCategories(response.data.data || []);
         } else {

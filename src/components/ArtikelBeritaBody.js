@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 const formatDate = (dateString) => {
@@ -20,7 +21,7 @@ const ArtikelBeritaBody = () => {
   useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const response = await axios.get("http://localhost:8000/api/category");
+          const response = await axios.get(`${BASE_URL}/api/category`);
           if (response.status === 200 && response.data) {
             setCategories(response.data.data || []);
           } else {
@@ -37,7 +38,7 @@ const ArtikelBeritaBody = () => {
   useEffect(() => {
     const fetchBerita = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/berita/${id}`);
+        const response = await axios.get(`${BASE_URL}/api/berita/${id}`);
         if (response.data.status === "ok") {
           setBerita(response.data.data);
         } else {

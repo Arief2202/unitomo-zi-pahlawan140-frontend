@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function CategoryBeritaFull() {
   const { id } = useParams();
@@ -13,7 +14,7 @@ function CategoryBeritaFull() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/category");
+        const response = await axios.get(`${BASE_URL}/api/category`);
         if (response.status === 200 && response.data) {
           setCategories(response.data.data || []);
         } else {
@@ -30,7 +31,7 @@ function CategoryBeritaFull() {
   useEffect(() => {
     const fetchBeritaByCategory = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/berita/category/id/${id}`);
+        const response = await axios.get(`${BASE_URL}/api/berita/category/id/${id}`);
         if (response.status === 200 && response.data.status === "ok") {
           setListBerita(response.data.data || []);
         } else {
