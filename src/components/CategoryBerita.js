@@ -4,34 +4,41 @@ import megaphone from "./assets/megaphone.svg";
 import gambar1 from "./assets/FotoBerita/3.png";
 import { Link } from "react-router-dom";
 
-const category = [
-  { id: 1, name: "Category News 1" },
-  { id: 2, name: "Category News 2" },
-  { id: 3, name: "Category News 3" },
-  { id: 4, name: "Category News 4" },
-  { id: 5, name: "Category News 69" },
-];
-
 function CategoryBerita() {
   const [listBerita, setListBerita] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchBerita = async () => {
       try {
         const response = await axios.get("http://localhost:8000/api/berita");
         if (response.status === 200 && response.data.status === "ok") {
           setListBerita(response.data.data || []);
         } else {
-          console.error("Data tidak ditemukan atau format salah");
+          console.error("Data berita tidak ditemukan atau format salah");
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching berita data:", error);
       }
     };
 
-    fetchData();
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/category");
+        if (response.status === 200 && response.data.status === "ok") {
+          setCategories(response.data.data || []);
+        } else {
+          console.error("Data kategori tidak ditemukan atau format salah");
+        }
+      } catch (error) {
+        console.error("Error fetching category data:", error);
+      }
+    };
+
+    fetchBerita();
+    fetchCategories();
   }, []);
 
   const totalPages = Math.ceil(listBerita.length / itemsPerPage);
@@ -76,13 +83,13 @@ function CategoryBerita() {
           <div className="border-t-2 border-black mt-2 w-full"></div>
         </div>
         <div className="mt-4 space-y-4">
-          {category.map((item) => (
+          {categories.map((item) => (
             <Link
               key={item.id}
               to={`/menu-berita/${item.id}`}
-              className="block font-semibold text-lg underline hover:text-blue-800"
+              className="block font-bold text-lg underline hover:text-blue-800"
             >
-              {item.name}
+              {item.categoryName}
             </Link>
           ))}
         </div>
@@ -137,10 +144,10 @@ function CategoryBerita() {
         ))}
         <div className="flex justify-center items-center space-x-4 mt-6">
           <button
-            className={`px-4 py-2 rounded ${
+            className={`px-4 py-2 rounded-lg ${
               currentPage === 1
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-blue-500 text-white hover:bg-blue-600"
+                : "bg-blue-900 text-white font-semibold hover:bg-blue-600"
             }`}
             onClick={handleBeforePage}
             disabled={currentPage === 1}
@@ -150,9 +157,9 @@ function CategoryBerita() {
           {calculatePaginationRange().map((page) => (
             <button
               key={page}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 py-1 rounded-lg ${
                 currentPage === page
-                  ? "bg-blue-500 text-white"
+                  ? "bg-blue-900 text-white font-semibold"
                   : "bg-gray-200 text-black hover:bg-gray-300"
               }`}
               onClick={() => handlePageChange(page)}
@@ -162,10 +169,10 @@ function CategoryBerita() {
           ))}
 
           <button
-            className={`px-4 py-2 rounded ${
+            className={`px-4 py-2 rounded-lg ${
               currentPage === totalPages
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-blue-500 text-white hover:bg-blue-600"
+                : "bg-blue-900 text-white font-semibold hover:bg-blue-700"
             }`}
             onClick={handleNextPage}
             disabled={currentPage === totalPages}

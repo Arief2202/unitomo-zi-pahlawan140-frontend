@@ -18,6 +18,9 @@
 .blue{
   color: #1F588D;
 }
+.bg-blue{
+  background-color: #1F588D;;
+}
 .orange{
   color: #FFA500;
 }

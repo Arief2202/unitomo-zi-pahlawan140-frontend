@@ -4,13 +4,6 @@ import axios from "axios";
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 
-const category = [
-  { id: 1, name: "Category News 1" },
-  { id: 2, name: "Category News 2" },
-  { id: 3, name: "Category News 3" },
-  { id: 4, name: "Category News 4" },
-  { id: 5, name: "Category News 69" },
-];
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -22,6 +15,25 @@ const ArtikelBeritaBody = () => {
   const [berita, setBerita] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+      const fetchCategories = async () => {
+        try {
+          const response = await axios.get("http://localhost:8000/api/category");
+          if (response.status === 200 && response.data) {
+            setCategories(response.data.data || []);
+          } else {
+            console.error("Kategori tidak ditemukan atau format salah");
+          }
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
+      };
+  
+      fetchCategories();
+    }, []);  
+
   useEffect(() => {
     const fetchBerita = async () => {
       try {
@@ -77,13 +89,13 @@ const ArtikelBeritaBody = () => {
           <div className="border-t-2 border-black mt-2 w-full"></div>
         </div>
         <div className="mt-4 space-y-4">
-          {category.map((item) => (
+          {categories.map((item) => (
             <Link
               key={item.id}
               to={`/menu-berita/${item.id}`}
               className="block font-semibold text-lg underline hover:text-blue-800"
             >
-              {item.name}
+              {item.categoryName}
             </Link>
           ))}
         </div>

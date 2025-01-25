@@ -1,71 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import gambar1 from "./assets/FotoBerita/3.png";
-
-const categories = [
-  {
-    id: 1,
-    name: "Category News 1",
-    description: "This is the content for Category News 1.",
-    subcategories: [
-      { id: 101, name: "Sub category 1.1" },
-      { id: 102, name: "Sub category 1.2" },
-      { id: 103, name: "Sub category 1.3" },
-    ],
-  },
-  {
-    id: 2,
-    name: "Category News 2",
-    description: "This is the content for Category News 2.",
-    subcategories: [
-      { id: 201, name: "Sub category 2.1" },
-      { id: 202, name: "Sub category 2.2" },
-    ],
-  },
-];
-
-const listBerita = [
-  {
-    id: 1,
-    judul: "Category News 1",
-    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: gambar1,
-    link: "/menu-berita",
-  },
-  {
-    id: 2,
-    judul: "Category News 2",
-    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: gambar1,
-    link: "#",
-  },
-  {
-    id: 3,
-    judul: "Category News 3",
-    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: gambar1,
-    link: "#",
-  },
-  {
-    id: 4,
-    judul: "Category News 4",
-    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatum exercitationem unde cupiditate ipsa explicabo quidem, quas, quos, dolorum quae quia quibusdam.",
-    image: gambar1,
-    link: "#",
-  },
-];
+import axios from "axios";
 
 function CategoryBeritaFull() {
   const { id } = useParams();
-  const category = categories.find((cat) => cat.id === parseInt(id));
+  const [categories, setCategories] = useState([]);
+  const [listBerita, setListBerita] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/category");
+        if (response.status === 200 && response.data) {
+          setCategories(response.data.data || []);
+        } else {
+          console.error("Kategori tidak ditemukan atau format salah");
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchBeritaByCategory = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/berita/category/id/${id}`);
+        if (response.status === 200 && response.data.status === "ok") {
+          setListBerita(response.data.data || []);
+        } else {
+          console.error("Data berita tidak ditemukan atau format salah");
+        }
+      } catch (error) {
+        console.error("Error fetching berita:", error);
+      }
+    };
+
+    if (id) {
+      fetchBeritaByCategory();
+    }
+  }, [id]);
+
+  useEffect(() => {
     if (searchQuery.trim() !== "") {
       const results = listBerita.filter((berita) =>
-        berita.judul.toLowerCase().includes(searchQuery.toLowerCase())
+        berita.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(results);
       setNotFound(results.length === 0);
@@ -73,7 +57,13 @@ function CategoryBeritaFull() {
       setSearchResults([]);
       setNotFound(false);
     }
-  }, [searchQuery]);
+  }, [searchQuery, listBerita]);
+
+  if (!categories.length) {
+    return <div>Loading categories...</div>;
+  }
+
+  const category = categories.find((cat) => cat.id === parseInt(id));
 
   if (!category) {
     return <div>Berita Tidak Ditemukan !</div>;
@@ -85,7 +75,7 @@ function CategoryBeritaFull() {
     <div className="grid grid-cols-12 px-4 p-12 mt-20">
       <div className="col-start-2 col-span-2 text-lg mb-4">
         <Link to="/berita">Berita</Link> {" > "}
-        <span className="blue">{category.name}</span>
+        <span className="blue">{category.categoryName}</span>
       </div>
       <div className="col-start-3 col-span-2">
         <div className="relative mt-10">
@@ -101,18 +91,8 @@ function CategoryBeritaFull() {
             parseInt(id) === item.id ? (
               <div key={item.id}>
                 <span className="block font-semibold text-lg blue">
-                  {item.name}
+                  {item.categoryName}
                 </span>
-                <div className="ml-4 mt-2 space-y-2">
-                  {item.subcategories.map((subcategory) => (
-                    <span
-                      key={subcategory.id}
-                      className="block text-gray-700"
-                    >
-                      {subcategory.name}
-                    </span>
-                  ))}
-                </div>
               </div>
             ) : (
               <Link
@@ -120,7 +100,7 @@ function CategoryBeritaFull() {
                 to={`/menu-berita/${item.id}`}
                 className="block font-semibold text-lg underline hover:text-blue-800"
               >
-                {item.name}
+                {item.categoryName}
               </Link>
             )
           )}
@@ -146,22 +126,22 @@ function CategoryBeritaFull() {
           </div>
         ) : (
           displayedBerita.map((item) => (
-            <div key={item.id} className="mt-8">
-              <a href={item.link} className="flex items-center">
-                <div className="flex p-4 rounded-lg space-x-4 max-w-4xl">
+            <div key={item.id} className="mt-8 w-full">
+              <a href={`/artikel-berita/${item.id}`} className="block">
+                <div className="flex p-4 rounded-lg space-x-4 max-w-full">
                   <div className="w-32 h-32 flex-shrink-0">
                     <img
                       src={item.image}
                       alt="Thumbnail Berita"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-md"
                     />
                   </div>
-                  <div className="flex flex-col">
-                    <h2 className="text-xl font-bold mb-2">{item.judul}</h2>
-                    <p className="text-black font-normal mb-4 leading-tight">
-                      {item.desc}
+                  <div className="flex flex-col justify-between w-full">
+                    <h2 className="text-xl font-bold mb-2">{item.title}</h2>
+                    <p className="text-black font-normal leading-tight">
+                      {item.imageDesc}
                     </p>
-                    <p className="text-right mr-12 hover:underline">
+                    <p className="text-sm text-right mt-auto hover:underline">
                       Lihat Selengkapnya ➔
                     </p>
                   </div>
