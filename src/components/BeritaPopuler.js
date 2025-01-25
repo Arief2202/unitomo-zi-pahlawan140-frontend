@@ -49,7 +49,7 @@ const berita = [
 const BeritaPopuler = () => {
   return (
     <section className="py-10 px-5 mt-20">
-        <div class="grid grid-cols-4">
+        <div className="grid grid-cols-4">
             <div className="col-start-2 col-span-2 mt-10" >
                 <p className="text-5xl font-bold mb-7">
                     Berita{" "}

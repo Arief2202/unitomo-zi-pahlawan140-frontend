@@ -1,3 +1,4 @@
+import React from "react";
 import megaphone from "./assets/megaphone.svg";
 import gambar1 from "./assets/FotoBerita/3.png";
 import { Link } from "react-router-dom";
@@ -63,7 +64,7 @@ function CategoryBerita() {
           />
         </div>
         {listBerita.map((item) => (
-        <div className="mt-8">
+        <div key={item.id} className="mt-8">
         <a
           href={item.link}
           className="flex items-center"

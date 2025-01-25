@@ -1,9 +1,10 @@
+import React from "react";
 import logo1 from "./assets/Logo/4.png";
 import logo2 from "./assets/Logo/16.png";
 
 export default function Integritas() {
     return (
-        <div class="grid grid-cols-7 gap-4 my-10">
+        <div className="grid grid-cols-7 gap-4 my-10">
             <div className="col-start-2 col-end-4 flex">
                 <div className="flex flex-col my-10">
                     <p className="title">
