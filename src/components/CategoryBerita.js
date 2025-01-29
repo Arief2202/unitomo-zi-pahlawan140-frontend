@@ -65,12 +65,9 @@ function CategoryBerita() {
   };
 
   const calculatePaginationRange = () => {
-    const startPage = Math.floor((currentPage - 1) / 3) * 3 + 1;
-    const endPage = Math.min(startPage + 2, totalPages);
-    return Array.from(
-      { length: endPage - startPage + 1 },
-      (_, index) => startPage + index
-    );
+    let start = Math.max(1, currentPage - 1);
+    let end = Math.min(totalPages, start + 2);
+    return Array.from({ length: Math.max(0, end - start + 1) }, (_, i) => start + i);
   };
 
   return (

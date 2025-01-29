@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -13,10 +13,12 @@ const formatDate = (dateString) => {
 
 const ArtikelBeritaBody = () => {
   const { id } = useParams(); 
+  const navigate = useNavigate();
   const [berita, setBerita] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
       const fetchCategories = async () => {
@@ -55,6 +57,13 @@ const ArtikelBeritaBody = () => {
     fetchBerita();
   }, [id]);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      navigate(`/menu-berita/1?pencarian=${search}`);
+    }
+  };
+
   if (loading) {
     return <div className="text-center mt-10">Memuat data...</div>;
   }
@@ -79,29 +88,43 @@ const ArtikelBeritaBody = () => {
           />
         </div>
       )}
-
-      <div className="col-start-9 col-span-2">
-        <div className="relative">
-          <div className="absolute bg-yellow-500 h-7 w-14 top-1 -left-4 -z-10"></div>
-          <p className="text-2xl font-bold">
-            Menu{" "}
-            <span className="blue">Berita ZI-RB</span>
-          </p>
-          <div className="border-t-2 border-black mt-2 w-full"></div>
-        </div>
-        <div className="mt-4 space-y-4">
-          {categories.map((item) => (
-            <Link
-              key={item.id}
-              to={`/menu-berita/${item.id}`}
-              className="block font-semibold text-lg underline hover:text-blue-800"
-            >
-              {item.categoryName}
-            </Link>
-          ))}
+        <div className="col-start-9 col-span-3 flex flex-col w-full">
+          <div className="w-full">
+            <div className="relative">
+              <i className="fa fa-search absolute left-3 top-2.5 text-gray-500"></i>
+              <form onSubmit={handleSearch} className="mt-4">
+                <input
+                  type="text"
+                  className="border-2 border-black rounded-full px-8 py-1 w-full"
+                  placeholder="Cari judul berita disini"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </form>
+            </div>
+          </div>
+          <div className="mt-24 w-full">
+            <div className="relative">
+              <div className="absolute bg-yellow-500 h-7 w-14 top-1 -left-4 -z-10"></div>
+              <p className="text-2xl font-bold">
+                Menu <span className="blue">Berita ZI-RB</span>
+              </p>
+              <div className="border-t-2 border-black mt-2 w-full"></div>
+            </div>
+            <div className="mt-4 space-y-4">
+              {categories.map((item) => (
+                <Link
+                  key={item.id}
+                  to={`/menu-berita/${item.id}`}
+                  className="block font-semibold text-lg underline hover:text-blue-800"
+                >
+                  {item.categoryName}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
