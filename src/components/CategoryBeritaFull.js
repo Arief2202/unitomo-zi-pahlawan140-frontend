@@ -3,21 +3,39 @@ import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
+// Komponen LazyImage dengan animasi shimmer
+const LazyImage = ({ src, alt, className }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = src;
+    image.onload = () => setLoaded(true);
+  }, [src]);
+
+  if (!loaded) {
+    return (
+      <div className={`relative overflow-hidden ${className}`}>
+        <div className="absolute inset-0 shimmer" />
+      </div>
+    );
+  }
+  return <img src={src} alt={alt} className={className} />;
+};
+
 function CategoryBeritaFull() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Ambil pencarian dari query URL
   const queryParams = new URLSearchParams(location.search);
   const initialSearchQuery = queryParams.get("pencarian") || "";
-  
+
   const [categories, setCategories] = useState([]);
   const [listBerita, setListBerita] = useState([]);
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [searchResults, setSearchResults] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  
   const [currentPage, setCurrentPage] = useState(1);
   const beritaPerPage = 5;
 
@@ -38,7 +56,9 @@ function CategoryBeritaFull() {
   useEffect(() => {
     const fetchBeritaByCategory = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/berita/category/id/${id}`);
+        const response = await axios.get(
+          `${BASE_URL}/api/berita/category/id/${id}`
+        );
         if (response.status === 200 && response.data.status === "ok") {
           setListBerita(response.data.data || []);
         }
@@ -51,7 +71,6 @@ function CategoryBeritaFull() {
     }
   }, [id]);
 
-  // Update searchQuery ketika URL berubah
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     setSearchQuery(queryParams.get("pencarian") || "");
@@ -71,7 +90,6 @@ function CategoryBeritaFull() {
     }
   }, [searchQuery, listBerita]);
 
-  // Fungsi untuk menangani pencarian
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/menu-berita/${id}?pencarian=${searchQuery}`);
@@ -86,15 +104,25 @@ function CategoryBeritaFull() {
     return <div>Berita Tidak Ditemukan!</div>;
   }
 
-  const displayedBerita = searchQuery.trim() !== "" ? searchResults : listBerita;
-  const totalPages = Math.max(1, Math.ceil(displayedBerita.length / beritaPerPage));
+  const displayedBerita =
+    searchQuery.trim() !== "" ? searchResults : listBerita;
+  const totalPages = Math.max(
+    1,
+    Math.ceil(displayedBerita.length / beritaPerPage)
+  );
   const startIndex = (currentPage - 1) * beritaPerPage;
-  const paginatedBerita = displayedBerita.slice(startIndex, startIndex + beritaPerPage);
+  const paginatedBerita = displayedBerita.slice(
+    startIndex,
+    startIndex + beritaPerPage
+  );
 
   const getPageNumbers = () => {
     let start = Math.max(1, currentPage - 1);
     let end = Math.min(totalPages, start + 2);
-    return Array.from({ length: Math.max(0, end - start + 1) }, (_, i) => start + i);
+    return Array.from(
+      { length: Math.max(0, end - start + 1) },
+      (_, i) => start + i
+    );
   };
 
   return (
@@ -115,14 +143,18 @@ function CategoryBeritaFull() {
 
         <div className="mt-4 space-y-4">
           {categories.map((item) => {
-            // Menyimpan query pencarian saat pindah kategori
-            const categoryLink = `/menu-berita/${item.id}${searchQuery ? `?pencarian=${searchQuery}` : ""}`;
-
+            const categoryLink = `/menu-berita/${item.id}${
+              searchQuery ? `?pencarian=${searchQuery}` : ""
+            }`;
             return (
               <Link
                 key={item.id}
                 to={categoryLink}
-                className={`block font-semibold text-lg ${parseInt(id) === item.id ? "blue" : "underline hover:text-blue-800"}`}
+                className={`block font-semibold text-lg ${
+                  parseInt(id) === item.id
+                    ? "blue"
+                    : "underline hover:text-blue-800"
+                }`}
               >
                 {item.categoryName}
               </Link>
@@ -157,11 +189,19 @@ function CategoryBeritaFull() {
             <div key={item.id} className="mt-8 w-full">
               <Link to={`/artikel-berita/${item.id}`} className="block">
                 <div className="flex p-4 rounded-lg space-x-4 max-w-full">
-                  <img src={item.image} alt={item.title} className="w-32 h-32 object-cover rounded-md" />
+                  <LazyImage
+                    src={item.image}
+                    alt={item.title}
+                    className="w-32 h-32 object-cover rounded-md"
+                  />
                   <div className="flex flex-col justify-between w-full">
                     <h2 className="text-xl font-bold mb-2">{item.title}</h2>
-                    <p className="text-black font-normal leading-tight">{item.imageDesc}</p>
-                    <p className="text-sm text-right mt-auto hover:underline">Lihat Selengkapnya ➔</p>
+                    <p className="text-black font-normal leading-tight">
+                      {item.imageDesc}
+                    </p>
+                    <p className="text-sm text-right mt-auto hover:underline">
+                      Lihat Selengkapnya ➔
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -181,13 +221,19 @@ function CategoryBeritaFull() {
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 rounded-lg ${currentPage === page ? "bg-blue-900 text-white font-semibold" : "bg-gray-200 text-black hover:bg-gray-300"}`}
+                className={`px-3 py-1 rounded-lg ${
+                  currentPage === page
+                    ? "bg-blue-900 text-white font-semibold"
+                    : "bg-gray-200 text-black hover:bg-gray-300"
+                }`}
               >
                 {page}
               </button>
             ))}
             <button
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className="px-4 py-2 rounded-lg bg-blue-900 text-white font-semibold hover:bg-blue-700"
             >
