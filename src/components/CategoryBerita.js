@@ -14,7 +14,7 @@ function CategoryBerita() {
   useEffect(() => {
     const fetchBerita = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/berita`);
+        const response = await axios.get(`${BASE_URL}/api/berita/newest`);
         if (response.status === 200 && response.data.status === "ok") {
           setListBerita(response.data.data || []);
         } else {
