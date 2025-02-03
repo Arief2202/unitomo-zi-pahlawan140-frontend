@@ -137,7 +137,7 @@ function CategoryBerita() {
         <div>
           <p className="text-2xl font-bold blue">TERBARU HARI INI DI ZI-RB</p>
         </div>
-        <div className="mt-4">
+        <div>
           {latestBerita && (
             <Link to={`/artikel-berita/${latestBerita.id}`}>
               <LazyImage
@@ -151,7 +151,7 @@ function CategoryBerita() {
         {currentItems.map((item) => (
           <div key={item.id} className="mt-8 w-full">
             <a href={`/artikel-berita/${item.id}`} className="block">
-              <div className="flex p-4 rounded-lg space-x-4 max-w-full">
+              <div className="flex p-1 rounded-lg space-x-4 max-w-full">
                 <div className="w-32 h-32 flex-shrink-0">
                   <LazyImage
                     src={item.image}
