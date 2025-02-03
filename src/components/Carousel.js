@@ -38,7 +38,8 @@ export default function Carousel() {
 
   return (
     <div>
-      <Swiper className="carousel mt-20"
+      <Swiper
+        className="carousel"
         modules={[Navigation, Pagination, EffectFade, Autoplay]}
         slidesPerView={1}
         navigation={{
@@ -46,16 +47,20 @@ export default function Carousel() {
           prevEl: ".custom-prev",
         }}
         loop={true}
-        effect={'fade'}
+        effect={"fade"}
         pagination={{ clickable: true }}
         autoplay={{
           delay: 2500,
           pauseOnMouseEnter: true,
         }}
       >
-        {images.map(item => (
+        {images.map((item) => (
           <SwiperSlide key={item.id}>
-            <img className='img_carousel' src={item.image} alt={`Carousel ${item.id}`} />
+            <img
+              className="img_carousel"
+              src={item.image}
+              alt={`Carousel ${item.id}`}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
