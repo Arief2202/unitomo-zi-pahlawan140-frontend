@@ -1,9 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import megaphone from "./assets/megaphone.svg";
-import gambar1 from "./assets/FotoBerita/3.png";
 import { Link } from "react-router-dom";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+
+const LazyImage = ({ src, alt, className }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = src;
+    image.onload = () => setLoaded(true);
+  }, [src]);
+
+  if (!loaded) {
+    return (
+      <div className={`relative overflow-hidden ${className}`}>
+        <div className="absolute inset-0 shimmer" />
+      </div>
+    );
+  }
+  return <img src={src} alt={alt} className={className} />;
+};
 
 function CategoryBerita() {
   const [listBerita, setListBerita] = useState([]);
@@ -122,7 +140,7 @@ function CategoryBerita() {
         <div className="mt-4">
           {latestBerita && (
             <Link to={`/artikel-berita/${latestBerita.id}`}>
-              <img
+              <LazyImage
                 src={latestBerita.image}
                 alt="Berita Terbaru"
                 className="w-full h-96 object-cover rounded-lg"
@@ -135,7 +153,7 @@ function CategoryBerita() {
             <a href={`/artikel-berita/${item.id}`} className="block">
               <div className="flex p-4 rounded-lg space-x-4 max-w-full">
                 <div className="w-32 h-32 flex-shrink-0">
-                  <img
+                  <LazyImage
                     src={item.image}
                     alt="Thumbnail Berita"
                     className="w-full h-full object-cover rounded-md"
@@ -179,7 +197,6 @@ function CategoryBerita() {
               {page}
             </button>
           ))}
-
           <button
             className={`px-4 py-2 rounded-lg ${
               currentPage === totalPages
