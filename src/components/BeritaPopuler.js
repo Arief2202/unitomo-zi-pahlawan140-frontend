@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "swiper/css";
 import "swiper/css/free-mode";
 import axios from "axios";
@@ -9,6 +10,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BeritaPopuler = () => {
   const [popularBerita, setPopularBerita] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Hook untuk navigasi
 
   useEffect(() => {
     const fetchPopularBerita = async () => {
@@ -46,23 +48,28 @@ const BeritaPopuler = () => {
       </div>
 
       <div className="max-w-5xl mx-auto px-5 lg:px-20">
-        <Swiper slidesPerView={5} spaceBetween={20} className="mySwiper">
+        <Swiper
+          slidesPerView={"auto"}
+          spaceBetween={20}
+          freeMode={true}
+          className="mySwiper"
+        >
           {popularBerita.map((item) => (
-            <SwiperSlide key={item.id}>
-              <a
-                href={item.link}
-                rel="noopener noreferrer"
-                className="block text-center"
-              >
+            <SwiperSlide
+              key={item.id}
+              style={{ width: "auto", cursor: "pointer" }}
+              onClick={() => navigate(`/artikel-berita/${item.id}`)}
+            >
+              <div className="block text-center">
                 <img
                   src={item.image}
                   alt={item.title}
                   className="w-44 h-32 mx-auto rounded-md object-cover"
                 />
-                <h3 className="text-xs font-bold underline text-gray-800 mt-1/2 w-40 text-left">
+                <h3 className="text-xs font-bold underline text-gray-800 mt-2 w-40 text-left">
                   {item.title}
                 </h3>
-              </a>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
