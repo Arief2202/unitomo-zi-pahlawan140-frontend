@@ -186,9 +186,9 @@ function CategoryBeritaFull() {
           </div>
         ) : (
           paginatedBerita.map((item) => (
-            <div key={item.id} className="mt-8 w-full">
+            <div key={item.id} className="mt-3 w-full">
               <Link to={`/artikel-berita/${item.id}`} className="block">
-                <div className="flex p-4 rounded-lg space-x-4 max-w-full">
+                <div className="flex p-2 rounded-lg space-x-4 max-w-full">
                   <LazyImage
                     src={item.image}
                     alt={item.title}
