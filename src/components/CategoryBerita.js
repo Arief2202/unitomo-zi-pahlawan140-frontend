@@ -67,8 +67,18 @@ function CategoryBerita() {
   const calculatePaginationRange = () => {
     let start = Math.max(1, currentPage - 1);
     let end = Math.min(totalPages, start + 2);
-    return Array.from({ length: Math.max(0, end - start + 1) }, (_, i) => start + i);
+    return Array.from(
+      { length: Math.max(0, end - start + 1) },
+      (_, i) => start + i
+    );
   };
+
+  const latestBerita =
+    listBerita.length > 0
+      ? listBerita.reduce((prev, current) => {
+          return prev.id > current.id ? prev : current;
+        })
+      : null;
 
   return (
     <div className="grid grid-cols-12 px-4 p-12">
@@ -110,11 +120,15 @@ function CategoryBerita() {
           <p className="text-2xl font-bold blue">TERBARU HARI INI DI ZI-RB</p>
         </div>
         <div className="mt-4">
-          <img
-            src={gambar1}
-            alt="Berita Terbaru"
-            className="w-full h-96 object-cover rounded-lg"
-          />
+          {latestBerita && (
+            <Link to={`/artikel-berita/${latestBerita.id}`}>
+              <img
+                src={latestBerita.image}
+                alt="Berita Terbaru"
+                className="w-full h-96 object-cover rounded-lg"
+              />
+            </Link>
+          )}
         </div>
         {currentItems.map((item) => (
           <div key={item.id} className="mt-8 w-full">
