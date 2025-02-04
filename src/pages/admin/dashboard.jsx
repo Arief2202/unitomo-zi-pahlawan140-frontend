@@ -1,6 +1,6 @@
 import React from "react";
 import AdminLayout from "../layout/AdminLayout";
-import { Person, Apartment, Email } from "@mui/icons-material";
+import { Person, Apartment, Face } from "@mui/icons-material";
 
 function DashboardAdmin() {
   return (
@@ -23,13 +23,13 @@ function DashboardAdmin() {
           </div>
 
           <div className="flex items-center space-x-5">
-            <Email
+            <Face
               className="text-primaryBlue bg-secondaryBlue p-1 rounded-lg"
               fontSize="large"
             />
             <div className="flex flex-col text-sm">
-              <p className="mb-0 font-semibold text-ternaryBlue">Email</p>
-              <p className="text-gray-500 text-[12px]">ipds35150@gmail.com</p>
+              <p className="mb-0 font-semibold text-ternaryBlue">Username</p>
+              <p className="text-gray-500 text-[12px]">Admin</p>
             </div>
           </div>
 
