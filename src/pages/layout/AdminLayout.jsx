@@ -5,15 +5,7 @@ import {
   Logout,
 } from "@mui/icons-material";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-import DnsRoundedIcon from "@mui/icons-material/DnsRounded";
-import Diversity3RoundedIcon from "@mui/icons-material/Diversity3Rounded";
-import WidgetsRoundedIcon from "@mui/icons-material/WidgetsRounded";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import MonitorHeartRoundedIcon from "@mui/icons-material/MonitorHeartRounded";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
-import PrintRoundedIcon from "@mui/icons-material/PrintRounded";
-import BusinessIcon from '@mui/icons-material/Business';
-import ImportContactsRoundedIcon from "@mui/icons-material/ImportContactsRounded";
 import { AnimatePresence, motion } from "framer-motion";
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import CategoryIcon from '@mui/icons-material/Category';
