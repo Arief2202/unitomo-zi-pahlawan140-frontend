@@ -8,6 +8,7 @@ import Berita from './pages/Berita';
 import MenuBerita from './pages/MenuBerita';
 import ArtikelBerita from './pages/ArtikelBerita';
 import Dashboard from "./pages/admin/dashboard";
+import BeritaAdmin from "./pages/admin/berita";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/menu-berita/:id" element={<MenuBerita />} />
         <Route path="/artikel-berita/:id" element={<ArtikelBerita />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/beritabaru" element={<BeritaAdmin />} />
       </Routes>
     </Router>
   );
