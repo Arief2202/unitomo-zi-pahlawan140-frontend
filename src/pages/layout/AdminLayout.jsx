@@ -27,6 +27,12 @@ function AdminLayout({ children }) {
       to: "/dashboard",
     },
     {
+      icon: <ViewCarouselIcon />,
+      text: "Carousel",
+      to: "/carouselbaru",
+      submenu: [],
+    },
+    {
       icon: <NewspaperIcon />,
       text: "Berita",
       to: "",
@@ -40,12 +46,6 @@ function AdminLayout({ children }) {
           icon: <CategoryIcon /> 
         },
       ],
-    },
-    {
-      icon: <ViewCarouselIcon />,
-      text: "Carousel",
-      to: "/carouselbaru",
-      submenu: [],
     },
     {
       icon: <Logout />,
