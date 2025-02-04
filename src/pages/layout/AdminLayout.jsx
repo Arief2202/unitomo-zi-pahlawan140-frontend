@@ -17,6 +17,7 @@ import ImportContactsRoundedIcon from "@mui/icons-material/ImportContactsRounded
 import { AnimatePresence, motion } from "framer-motion";
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import CategoryIcon from '@mui/icons-material/Category';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 
 function AdminLayout({ children }) {
   const data = [
@@ -41,15 +42,9 @@ function AdminLayout({ children }) {
       ],
     },
     {
-      icon: <Diversity3RoundedIcon />,
-      text: "Ayo Magang",
-      to: "/ayomagang_adm",
-      submenu: [],
-    },
-    {
-      icon: <ImportContactsRoundedIcon />,
-      text: "Buku Panduan",
-      to: "https://drive.google.com/drive/folders/12QcdaNv1qR60NZjCfisFlLmcjcmjbFxL?usp=sharing",
+      icon: <ViewCarouselIcon />,
+      text: "Carousel",
+      to: "/carouselbaru",
       submenu: [],
     },
     {
