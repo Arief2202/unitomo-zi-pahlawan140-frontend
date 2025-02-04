@@ -38,28 +38,6 @@ function AdminLayout({ children }) {
           to: "/categorybaru", 
           icon: <CategoryIcon /> 
         },
-        {
-          text: "Berita",
-          to: "/berita_adm",
-          icon: <NewspaperIcon />,
-        },
-        {
-          text: "Ruang Baca",
-          to: "/ruangbaca_adm",
-          icon: <MenuBookRoundedIcon />,
-        },
-        {
-          text: "Teman Luki",
-          to: "/temanluki_adm",
-          icon: <MonitorHeartRoundedIcon />,
-        },
-        {
-          text: "SDI",
-          to: "/sdi_adm",
-          icon: <BusinessIcon />,
-        },
-        
-        { text: "My Office", to: "/myoffice_adm", icon: <PrintRoundedIcon /> },
       ],
     },
     {
