@@ -16,6 +16,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import ImportContactsRoundedIcon from "@mui/icons-material/ImportContactsRounded";
 import { AnimatePresence, motion } from "framer-motion";
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import CategoryIcon from '@mui/icons-material/Category';
 
 function AdminLayout({ children }) {
   const data = [
@@ -25,13 +26,18 @@ function AdminLayout({ children }) {
       to: "/dashboard",
     },
     {
-      icon: <DnsRoundedIcon />,
-      text: "Pahlawan140",
+      icon: <NewspaperIcon />,
+      text: "Berita",
       to: "",
       submenu: [
-        { text: "Menu", to: "/menu", icon: <WidgetsRoundedIcon /> },
-        { text: "Beranda", to: "/beranda_adm", icon: <HomeRoundedIcon /> },
-        
+        { text: "Berita Baru", 
+          to: "/beritabaru", 
+          icon: <MenuBookRoundedIcon /> },
+        { 
+          text: "Category", 
+          to: "/categorybaru", 
+          icon: <CategoryIcon /> 
+        },
         {
           text: "Berita",
           to: "/berita_adm",
