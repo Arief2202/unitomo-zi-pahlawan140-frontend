@@ -19,9 +19,9 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
-import { EditIcon } from "../../components/Icon/EditIcon";
-import { DeleteIcon } from "../../components/Icon/DeleteIcon";
-import { EyeIcon } from "../../components/Icon/EyeIcon";
+import { EditIcon } from "../../components/assets/Icon/EditIcon";
+import { DeleteIcon } from "../../components/assets/Icon/DeleteIcon";
+import { EyeIcon } from "../../components/assets/Icon/EyeIcon";
 import { Form, message, Button as AntButton, Input, Upload, Modal as AntModal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
