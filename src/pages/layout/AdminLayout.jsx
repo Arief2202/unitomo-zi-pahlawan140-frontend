@@ -4,38 +4,34 @@ import {
   Close,
   Logout,
 } from "@mui/icons-material";
-import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
+import {DashboardRounded, MenuBookRounded, Newspaper, Category, ViewCarousel} from "@mui/icons-material";
 import { AnimatePresence, motion } from "framer-motion";
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import CategoryIcon from '@mui/icons-material/Category';
-import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 
 function AdminLayout({ children }) {
   const data = [
     {
-      icon: <DashboardRoundedIcon />,
+      icon: <DashboardRounded />,
       text: "Dashboard",
       to: "/dashboard",
     },
     {
-      icon: <ViewCarouselIcon />,
+      icon: <ViewCarousel />,
       text: "Carousel",
       to: "/carouselbaru",
       submenu: [],
     },
     {
-      icon: <NewspaperIcon />,
+      icon: <Newspaper />,
       text: "Berita",
       to: "",
       submenu: [
         { text: "Berita Baru", 
           to: "/beritabaru", 
-          icon: <MenuBookRoundedIcon /> },
+          icon: <MenuBookRounded /> },
         { 
           text: "Category", 
           to: "/categorybaru", 
-          icon: <CategoryIcon /> 
+          icon: <Category /> 
         },
       ],
     },
