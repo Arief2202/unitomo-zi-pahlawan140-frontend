@@ -1,4 +1,5 @@
 import React from "react";
+import maklumat from '../../components/assets/maklumat.svg'
 import AdminLayout from "../layout/AdminLayout";
 import { Person, Apartment, Face } from "@mui/icons-material";
 
@@ -47,7 +48,7 @@ function DashboardAdmin() {
           </div>
         </div>
         <div className="mt-5 flex flex-col md:flex-row bg-white rounded-2xl p-5 justify-between space-y-5 md:space-y-0">
-            <img src="/image/maklumat.svg" alt="" />
+            <img src={maklumat} alt="" />
         </div>
       </div>
     </AdminLayout>
