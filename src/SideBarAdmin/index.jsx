@@ -7,6 +7,7 @@ import {
   ExpandMore,
 } from "@mui/icons-material";
 import Swal from "sweetalert2";
+import logo from '../components/assets/Logo/logo.png'
 
 const Sidebar = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -44,7 +45,7 @@ const Sidebar = ({ children }) => {
           <div className="p-4 pb-2 flex justify-between items-center">
             <a href="/">
               <img
-                src="/image/logo.png"
+                src={logo}
                 className={`overflow-hidden transition-all duration-300 ${
                   isSidebarOpen ? "w-24" : "w-0"
                 }`}
