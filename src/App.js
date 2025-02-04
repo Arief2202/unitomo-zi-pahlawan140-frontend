@@ -7,18 +7,20 @@ import Beranda from './pages/Beranda';
 import Berita from './pages/Berita';
 import MenuBerita from './pages/MenuBerita';
 import ArtikelBerita from './pages/ArtikelBerita';
+import Dashboard from "./pages/admin/dashboard";
 
 function App() {
   return (
-    <Router> 
+    <Router>
       <Routes>
-        <Route path="/" element={<Beranda/>}/> 
-        <Route path="/berita" element={<Berita/>}/> 
-        <Route path="/menu-berita/:id" element={<MenuBerita/>}/> 
-        <Route path="/artikel-berita/:id" element={<ArtikelBerita/>}/> 
+        <Route path="/" element={<Beranda />} />
+        <Route path="/berita" element={<Berita />} />
+        <Route path="/menu-berita/:id" element={<MenuBerita />} />
+        <Route path="/artikel-berita/:id" element={<ArtikelBerita />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
-  ); 
+  );
 } 
 
 export default App;
