@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Sidebar, { SidebarItem } from "../../SideBarAdmin";
 import {
-  Dashboard,
-  Assignment,
-  Key,
-  Person,
-  CardMembership,
   Close,
   Logout,
 } from "@mui/icons-material";
@@ -83,13 +78,9 @@ function AdminLayout({ children }) {
 
   const [toast, setToast] = useState(false);
 
-  const handleLogout = () => {
-    window.location.href = '/';
-  };
-
   return (
     <div className="flex h-screen overflow-hidden">
-      <div className="fixed w-1/6 h-full z-40 bg-grayCustom">
+      <div className="fixed w-1/6 h-full z-40 bg-grayCustom text-sm">
         <Sidebar>
           {data.map((item, key) => (
             <SidebarItem
