@@ -5,14 +5,12 @@ import { Person, Apartment, Email } from "@mui/icons-material";
 function DashboardAdmin() {
   return (
     <AdminLayout>
-      {/* Add the grey background color to the main container */}
       <div className="bg-grayCustom min-h-screen p-10 mt-0 mx-auto">
         <h1 className="text-3xl text-pdarkblue font-bold">
           Selamat Datang, Admin 3515!
         </h1>
 
         <div className="mt-5 flex flex-col md:flex-row bg-white rounded-2xl p-5 justify-between space-y-5 md:space-y-0">
-          {/* Nama */}
           <div className="flex items-center space-x-5">
             <Person
               className="text-primaryBlue bg-secondaryBlue p-1 rounded-lg"
@@ -24,7 +22,6 @@ function DashboardAdmin() {
             </div>
           </div>
 
-          {/* Email */}
           <div className="flex items-center space-x-5">
             <Email
               className="text-primaryBlue bg-secondaryBlue p-1 rounded-lg"
@@ -36,7 +33,6 @@ function DashboardAdmin() {
             </div>
           </div>
 
-          {/* Asal Institusi */}
           <div className="flex items-center space-x-5">
             <Apartment
               className="text-primaryBlue bg-secondaryBlue p-1 rounded-lg"
