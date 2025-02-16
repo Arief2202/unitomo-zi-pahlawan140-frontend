@@ -146,13 +146,12 @@ export function SidebarItem({
       confirmButtonText: "Yakin"
     }).then((result) => {
       if (result.isConfirmed) {
-         localStorage.removeItem("tokenUser");
-         localStorage.removeItem("loginSuccess");
-         localStorage.removeItem("userRole");
-         window.location.href = '/';
+          sessionStorage.clear();
+          localStorage.clear();
+          window.location.href = '/';
       }
-    });
-    // setShowLogoutModal(true);
+  });
+  
   };
 
   const handleSubmenuToggle = (e) => {

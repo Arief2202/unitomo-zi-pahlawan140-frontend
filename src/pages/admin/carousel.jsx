@@ -31,54 +31,33 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const columns = [
   { name: "Id", uid: "urut_tl" },
-  { name: "Judul", uid: "judul_tl" },
+  { name: "Gambar", uid: "carousel_tl" },
   { name: "Aksi", uid: "aksi_tl" },
 ];
 
-const Berita = () => {
+const Carousel = () => {
   const [modalActionTL, setModalActionTL] = useState(null);
   const [selectedItemTL, setSelectedItemTL] = useState(null);
   const [data_tl, setTL] = useState([]);
-  const [categories, setCategories] = useState([]); 
   const [formTL] = Form.useForm();
-  const tlURL = `${BASE_URL}/api/berita/`;
+  const tlURL = `${BASE_URL}/api/carousel/`;
+  const all = `${BASE_URL}/api/carousel/all`;
 
   const getTL = async () => {
     try {
-      const beritaRes = await axios.get(tlURL);
+      const beritaRes = await axios.get(all);
       setTL(
         beritaRes.data.data.map((item) => ({
           urut_tl: item.id,
-          judul_tl: item.title,
-          link_tl: item.content,
-          author_tl: item.author,
-          descimage_tl: item.imageDesc,
-          imagesource_tl: item.imageSource,
-          image_tl: item.image
-            ? [
-                {
-                  uid: String(item.id),
-                  name: "image.jpg",
-                  status: "done",
-                  url: item.image,
-                },
-              ]
-            : [],
-          catid_tl: item.categoryId,
+          carousel_tl: item.image,
+          active_tl: item.active,
         }))
       );
-  
-      const categoryRes = await axios.get(`${BASE_URL}/api/category`);
-      if (categoryRes.data.status === "ok") {
-        setCategories(categoryRes.data.data);
-      }
     } catch (error) {
       message.error("[" + error.response?.status + "] Gagal Menampilkan List", 5);
     }
   };
   
-  
-
   useEffect(() => {
     getTL();
   }, []);
@@ -93,11 +72,25 @@ const Berita = () => {
       setSelectedItemTL("");
     }
     if (action === "edit" || action === "view") {
-      formTL.setFieldsValue(item);
+      const fields = {
+        ...item,
+        carousel_tl: item.carousel_tl
+          ? [{
+              uid: String(item.urut_tl),
+              name: "carousel.jpg", 
+              status: "done",
+              url: item.carousel_tl.startsWith("http")
+                ? item.carousel_tl
+                : `${BASE_URL}${item.carousel_tl}`
+            }]
+          : []
+      };
+      formTL.setFieldsValue(fields);
     }
+    
     onOpenTL();
   };
-
+  
   const verifyToken = async (token) => {
     try {
         const response = await axios.post(`${BASE_URL}/login/verify`, {}, {
@@ -207,11 +200,10 @@ const deleteTL = (item) => {
     });
 };
 
-
   const renderCellTL = useCallback((item, columnKey) => {
     const cellValue = item[columnKey];
     switch (columnKey) {
-      case "judul_tl":
+      case "carousel_tl":
         return <p className="text-bold text-sm text-center">{cellValue}</p>;
       case "aksi_tl":
         return (
@@ -259,10 +251,10 @@ const deleteTL = (item) => {
   return (
     <AdminLayout>
       <div className="bg-grayCustom min-h-screen p-10 mt-0 mx-auto">
-        <h6 className="text-sm font-semibold text-pdarkblue">Admin {'>'} Berita</h6>
+        <h6 className="text-sm font-semibold text-pdarkblue">Admin {'>'} Carousel</h6>
         <div className="mt-5 flex flex-col md:flex-row bg-white rounded-2xl p-10 justify-between space-y-5 md:space-y-0">
           <div className="w-full flex justify-center items-center flex-col">
-            <h2 className="text-lg font-semibold text-pdarkblue mb-4">Form Berita</h2>
+            <h2 className="text-lg font-semibold text-pdarkblue mb-4">Form Carousel</h2>
 
             <NextUIButton size="sm" color="primary" onPress={() => openModalTL("add", null)}>
               Tambah <PlusOutlined />
@@ -279,7 +271,7 @@ const deleteTL = (item) => {
                 {(onClose) => (
                   <>
                     <ModalHeader className="flex flex-col items-center font-semibold text-pdarkblue">
-                      {modalActionTL === "view" ? "Detail Video Youtube" : "Form Tambah Berita"}
+                      {modalActionTL === "view" ? "Detail Video Youtube" : "Form Tambah Carousel"}
                     </ModalHeader>
                     <Form
                       form={formTL}
@@ -295,94 +287,62 @@ const deleteTL = (item) => {
                           <Input placeholder="" type="text" disabled />
                         </Form.Item>
                         <Form.Item
-                          label="Kategori"
-                          name="catid_tl"
-                          rules={[{ required: true, message: "Pilih kategori" }]}
+                          label="Status"
+                          name="active_tl"
+                          rules={[{ required: true, message: "Pilih status" }]}
                         >
-                          <Select
-                            placeholder="Pilih kategori"
-                            disabled={modalActionTL === "view"}
-                          >
-                            {categories.map((category) => (
-                              <Option key={category.id} value={category.id}>
-                                {category.categoryName}
-                              </Option>
-                            ))}
+                          <Select placeholder="Pilih status" disabled={modalActionTL === "view"}>
+                            <Select.Option value={true}>Aktif</Select.Option>
+                            <Select.Option value={false}>Nonaktif</Select.Option>
                           </Select>
                         </Form.Item>
                         <Form.Item
-                          label="Judul"
-                          name="judul_tl"
-                          rules={[{ required: true, message: "Masukkan Judul" }]}
+                          label="Gambar"
+                          name="carousel_tl"
+                          rules={[{ required: true, message: "Masukkan Gambar" }]}
+                          valuePropName="fileList"
+                          getValueFromEvent={(e) => {
+                            if (Array.isArray(e)) {
+                              return e;
+                            }
+                            return e && e.fileList;
+                          }}
                         >
-                          <Input disabled={modalActionTL === "view"} />
-                        </Form.Item>
-                        <Form.Item
-                          label="Deskripsi Gambar"
-                          name="descimage_tl"
-                          rules={[{ required: true, message: "Masukkan Deskripsi Gambar" }]}
-                        >
-                          <Input disabled={modalActionTL === "view"} />
-                        </Form.Item>
-                        <Form.Item
-                          label="Sumber Gambar"
-                          name="imagesource_tl"
-                          rules={[{ required: true, message: "Masukkan Sumber Gambar" }]}
-                        >
-                          <Input disabled={modalActionTL === "view"} />
-                        </Form.Item>
-                        <Form.Item
-                          label="Konten"
-                          name="link_tl"
-                          rules={[{ required: true, message: "Masukkan Konten" }]}
-                        >
-                          <Input disabled={modalActionTL === "view"} />
-                        </Form.Item>
-                        <Form.Item
-                          label="Author"
-                          name="author_tl"
-                          rules={[{ required: true, message: "Masukkan Author" }]}
-                        >
-                          <Input disabled={modalActionTL === "view"} />
-                        </Form.Item>
-                          <Form.Item
-                            label="Gambar"
-                            name="image_tl"
-                            rules={[{ required: true, message: "Masukkan Gambar" }]}
-                            valuePropName="fileList"
-                            getValueFromEvent={(e) => {
-                              if (Array.isArray(e)) {
-                                return e;
-                              }
-                              return e && e.fileList;
-                            }}
-                          >
-                            {modalActionTL === "view" ? (
-                              <img
-                              src={
-                                formTL.getFieldValue("image_tl")?.[0]?.url
-                                  ? `${BASE_URL}${formTL.getFieldValue("image_tl")[0].url}`
-                                  : "fallback-image.png"
-                              }
+                          {modalActionTL === "view" ? (() => {
+                          const carouselValue = formTL.getFieldValue("carousel_tl");
+                          let imageURL = "fallback-image.png";
+                          if (Array.isArray(carouselValue) && carouselValue.length > 0) {
+                            const firstItem = carouselValue[0];
+                            if (firstItem && typeof firstItem.url === "string") {
+                              imageURL = firstItem.url.startsWith("http")
+                                ? firstItem.url
+                                : `${BASE_URL}${firstItem.url}`;
+                            }
+                          }
+                          return (
+                            <img
+                              src={imageURL}
                               alt="Gambar"
-                              style={{ width: "100%", maxHeight: 200, objectFit: "cover" }}
-                            />                            
-                            
-                            ) : (
-                              <Upload
-                                name="image"
-                                listType="picture-card"
-                                showUploadList={true}
-                                beforeUpload={() => false}
-                                disabled={modalActionTL === "view"}
-                                onChange={({ fileList }) => {
-                                  formTL.setFieldsValue({ image_tl: fileList });
-                                }}
-                              >
-                                <PlusOutlined />
-                              </Upload>
-                            )}
-                          </Form.Item>
+                              style={{ width: "100%", maxHeight: "100%", objectFit: "cover" }}
+                            />
+                          );
+                        })() : (
+                          <Upload
+                          name="image"
+                          listType="picture-card"
+                          showUploadList={true}
+                          beforeUpload={() => false}
+                          disabled={modalActionTL === "view"}
+                          maxCount={1}
+                          onChange={({ fileList }) => {
+                            formTL.setFieldsValue({ carousel_tl: fileList });
+                          }}
+                        >
+                          <PlusOutlined />
+                        </Upload>
+
+                        )}
+                        </Form.Item>
                       </ModalBody>
                       <ModalFooter>
                         <NextUIButton color="danger" variant="light" onPress={onClose}>
@@ -425,4 +385,4 @@ const deleteTL = (item) => {
   );
 };
 
-export default Berita;
+export default Carousel;
